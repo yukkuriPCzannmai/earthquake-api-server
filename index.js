@@ -1,4 +1,3 @@
-const functions = require('firebase-functions');
 const express = require('express');
 const cors = require('cors');
 
@@ -19,7 +18,7 @@ let healthData = {
 // ルートエンドポイント（稼働確認用）
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send('地震情報サーバー稼働中 - Firebase');
+  res.send('地震情報サーバー稼働中 - Render');
 });
 
 // 地震情報受信エンドポイント
@@ -101,5 +100,8 @@ app.get('/api/alerts', (req, res) => {
   });
 });
 
-// Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
+// Render.com用サーバー起動
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`サーバー起動: ポート ${port}`);
+});
